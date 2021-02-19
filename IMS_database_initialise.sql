@@ -17,11 +17,9 @@ CREATE TABLE IF NOT EXISTS `ims`.`orders` (
 
 CREATE TABLE IF NOT EXISTS `ims`.`items` (
     `item_id` INT(11) NOT NULL AUTO_INCREMENT,
-    `order_id` int,
     item_name varchar(40),
     item_value float(10, 2),
-    PRIMARY KEY (`item_id`),
-	FOREIGN KEY (`order_id`) REFERENCES customers(`id`)
+    PRIMARY KEY (`item_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `ims`.`orderlines` (
@@ -29,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `ims`.`orderlines` (
     `order_id` int,
     `item_id` int,
     `quantity` int(5) NOT NULL,
-    `order_price` float(10, 2),
     PRIMARY KEY (`orderline_id`),
 	FOREIGN KEY (`order_id`) REFERENCES orders(`order_id`),
     FOREIGN KEY (`item_id`) REFERENCES items(`item_id`)
