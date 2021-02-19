@@ -38,6 +38,7 @@ public class OrderDAO implements Dao<Order>{
 		} catch (SQLException e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
+			LOGGER.info("Please make sure Customer ID is correct");
 		}
 		return new ArrayList<>();
 	}
