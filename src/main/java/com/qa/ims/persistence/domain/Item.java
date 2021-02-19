@@ -5,16 +5,16 @@ public class Item {
 	private Long itemId;
 	private Long orderId;
 	private String itemName;
-	private Float itemValue;
+	private Double itemValue;
 	
-	public Item(Long itemId, Long orderId, String itemName, Float itemValue) {
+	public Item(Long itemId, Long orderId, String itemName, Double itemValue) {
 		this.setItemId(itemId);
 		this.setOrderId(orderId);
 		this.setItemName(itemName);
 		this.setItemValue(itemValue);
 	}
 	
-	public Item(Long orderId, String itemName, Float itemValue) {
+	public Item(Long orderId, String itemName, Double itemValue) {
 		this.setOrderId(orderId);
 		this.setItemName(itemName);
 		this.setItemValue(itemValue);
@@ -38,13 +38,15 @@ public class Item {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public Float getItemValue() {
+	public Double getItemValue() {
 		return itemValue;
 	}
-	public void setItemValue(Float itemValue) {
+	public void setItemValue(Double itemValue) {
 		this.itemValue = itemValue;
 	}
 	
-	
+	public String toString() {
+		return "item_id:" + itemId + " order_id:" + orderId + " item_name:" + itemName + " item_value:" + itemValue;
+	}
 	
 }

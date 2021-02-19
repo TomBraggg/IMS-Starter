@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,7 +11,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.DBUtils;
 
@@ -23,7 +23,7 @@ public class ItemDAO implements Dao<Item>{
 		Long itemId = resultSet.getLong("item_id");
 		Long orderId = resultSet.getLong("order_id");
 		String itemName = resultSet.getString("item_name");
-		Float itemValue = resultSet.getFloat("item_value");
+		Double itemValue = resultSet.getDouble("item_value");
 		return new Item(itemId, orderId, itemName, itemValue);
 	}
 
@@ -49,10 +49,27 @@ public class ItemDAO implements Dao<Item>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	private Item readLatest() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	@Override
-	public Item create(Item t) {
-		// TODO Auto-generated method stub
+	public Item create(Item item) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO items(order_id, item_name, item_value) VALUES (?, ?, ?)");) {
+			statement.setLong(1, item.getOrderId());
+			statement.setString(2, item.getItemName());
+			statement.setDouble(3, item.getItemValue());
+			statement.executeUpdate();
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
 

@@ -16,8 +16,12 @@ public class ItemController implements CrudController<Item>{
 	private ItemDAO itemDAO;
 	private Utils utils;
 	
+	public ItemController(ItemDAO itemDAO, Utils utils) {
+		super();
+		this.itemDAO = itemDAO;
+		this.utils = utils;
+	}
 	
-
 	@Override
 	public List<Item> readAll() {
 		List<Item> items = itemDAO.readAll();
@@ -29,8 +33,15 @@ public class ItemController implements CrudController<Item>{
 
 	@Override
 	public Item create() {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.info("Please enter an Order ID");
+		Long orderId = utils.getLong();
+		LOGGER.info("Please enter an Item Name");
+		String itemName = utils.getString();
+		LOGGER.info("Please enter the value of the item");
+		Double itemValue = utils.getDouble();
+		Item item = itemDAO.create(new Item(orderId, itemName, itemValue));
+		LOGGER.info("Item created");
+		return item;
 	}
 
 	@Override
