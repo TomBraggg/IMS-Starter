@@ -1,13 +1,11 @@
 package com.qa.ims.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.OrderDAO;
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 
@@ -48,10 +46,9 @@ public class OrderController implements CrudController<Order> {
 		Long orderId = utils.getLong();
 		LOGGER.info("Please enter a new Customer ID to associate the order with");
 		Long id = utils.getLong();
-		Order order = orderDAO.update(new order(id, firstName, surname));
-		LOGGER.info("Customer Updated");
-		return customer;
-		return null;
+		Order order = orderDAO.update(new Order(orderId, id));
+		LOGGER.info("Order updated");
+		return order;
 	}
 
 	@Override

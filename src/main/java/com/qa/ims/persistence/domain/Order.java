@@ -13,15 +13,15 @@ public class Order {
 	}
 	
 	public Order(Long order_id, Long id) {
-		this.setOrder_id(order_id);
+		this.setOrderId(order_id);
 		this.setId(id);
 	}
 
-	public Long getOrder_id() {
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrder_id(Long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
