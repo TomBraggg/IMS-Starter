@@ -60,7 +60,11 @@ public class Order {
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "order_id:" + orderId + " id" + customerId + " date:" + orderDate;
+=======
+		return "order_id:" + orderId + " id:" + id + " date:" + orderDate;
+>>>>>>> dev
 	}
 	
 }
