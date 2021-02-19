@@ -14,8 +14,8 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.DBUtils;
 
-public class ItemDAO implements Dao<Item>{
-	
+public class ItemDAO implements Dao<Item> {
+
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
@@ -49,12 +49,11 @@ public class ItemDAO implements Dao<Item>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	private Item readLatest() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public Item create(Item item) {
@@ -76,8 +75,8 @@ public class ItemDAO implements Dao<Item>{
 	@Override
 	public Item update(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE items SET order_id = ?, item_name = ?, item_value = ? WHERE item_id = ?");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE items SET order_id = ?, item_name = ?, item_value = ? WHERE item_id = ?");) {
 			statement.setLong(1, item.getOrderId());
 			statement.setString(2, item.getItemName());
 			statement.setDouble(3, item.getItemValue());
@@ -92,8 +91,15 @@ public class ItemDAO implements Dao<Item>{
 	}
 
 	@Override
-	public int delete(long id) {
-		// TODO Auto-generated method stub
+	public int delete(long itemId) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE item_id = ?");) {
+			statement.setLong(1, itemId);
+			return statement.executeUpdate();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return 0;
 	}
 
