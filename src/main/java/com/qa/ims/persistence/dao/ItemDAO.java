@@ -21,9 +21,10 @@ public class ItemDAO implements Dao<Item> {
 	@Override
 	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long itemId = resultSet.getLong("item_id");
+		Long orderId = resultSet.getLong("order_id");
 		String itemName = resultSet.getString("item_name");
 		Double itemValue = resultSet.getDouble("item_value");
-		return new Item(itemId, itemName, itemValue);
+		return new Item(itemId, orderId, itemName, itemValue);
 	}
 
 	@Override
@@ -58,9 +59,10 @@ public class ItemDAO implements Dao<Item> {
 	public Item create(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO items(item_name, item_value) VALUES (?, ?)");) {
-			statement.setString(1, item.getItemName());
-			statement.setDouble(2, item.getItemValue());
+						.prepareStatement("INSERT INTO items(order_id, item_name, item_value) VALUES (?, ?, ?)");) {
+			statement.setLong(1, item.getOrderId());
+			statement.setString(2, item.getItemName());
+			statement.setDouble(3, item.getItemValue());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -74,12 +76,13 @@ public class ItemDAO implements Dao<Item> {
 	public Item update(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"UPDATE items SET item_name = ?, item_value = ? WHERE item_id = ?");) {
-			statement.setString(1, item.getItemName());
-			statement.setDouble(2, item.getItemValue());
-			statement.setLong(3, item.getItemId());
+						"UPDATE items SET order_id = ?, item_name = ?, item_value = ? WHERE item_id = ?");) {
+			statement.setLong(1, item.getOrderId());
+			statement.setString(2, item.getItemName());
+			statement.setDouble(3, item.getItemValue());
+			statement.setLong(4, item.getItemId());
 			statement.executeUpdate();
-			return read(item.getItemId());
+			return read(item.getOrderId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());

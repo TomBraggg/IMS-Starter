@@ -33,11 +33,13 @@ public class ItemController implements CrudController<Item>{
 
 	@Override
 	public Item create() {
+		LOGGER.info("Please enter an Order ID");
+		Long orderId = utils.getLong();
 		LOGGER.info("Please enter an Item Name");
 		String itemName = utils.getString();
 		LOGGER.info("Please enter the value of the item");
 		Double itemValue = utils.getDouble();
-		Item item = itemDAO.create(new Item(itemName, itemValue));
+		Item item = itemDAO.create(new Item(orderId, itemName, itemValue));
 		LOGGER.info("Item created");
 		return item;
 	}
@@ -46,11 +48,13 @@ public class ItemController implements CrudController<Item>{
 	public Item update() {
 		LOGGER.info("Please enter the item id of the item you would like to update");
 		Long itemId = utils.getLong();
+		LOGGER.info("Please enter the associated order ID");
+		Long orderId = utils.getLong();
 		LOGGER.info("Please enter the item name");
 		String itemName = utils.getString();
 		LOGGER.info("Please enter the value of the item");
 		Double itemValue = utils.getDouble();
-		Item item = itemDAO.update(new Item(itemId, itemName, itemValue));
+		Item item = itemDAO.update(new Item(itemId, orderId, itemName, itemValue));
 		LOGGER.info("Item Updated");
 		return item;
 	}
