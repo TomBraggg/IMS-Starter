@@ -60,14 +60,20 @@ public class OrderDAO implements Dao<Order>{
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO orders(id, order_date) VALUES (?, ?)");) {
 			statement.setLong(1, order.getId());
-			statement.setDate(2, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			statement.setDate(2, java.sql.Date.valueOf(order.getOrderDate().toString()));
 			statement.executeUpdate();
-			return readLatest();	
+			createOrderLines(order);
+			return readLatest();
 		} catch(Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return null;
+	}
+
+	private void createOrderLines(Order order) {
+		
+		
 	}
 
 	@Override
