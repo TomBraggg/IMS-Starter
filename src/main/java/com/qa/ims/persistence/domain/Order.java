@@ -39,7 +39,7 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "order_id:" + orderId + " id" + id + " date:" + orderDate;
+		return "order_id:" + orderId + " id:" + id + " date:" + orderDate;
 	}
 	
 }
