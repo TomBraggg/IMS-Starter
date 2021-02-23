@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
@@ -15,7 +16,7 @@ public class OrderController implements CrudController<Order> {
 
 	private OrderDAO orderDAO;
 	private Utils utils;
-	
+
 	public OrderController(OrderDAO orderDAO, Utils utils) {
 		super();
 		this.orderDAO = orderDAO;
@@ -35,23 +36,39 @@ public class OrderController implements CrudController<Order> {
 	public Order create() {
 		LOGGER.info("Please enter a customer ID");
 		Long customerId = utils.getLong();
+
+		ItemDAO itemDAO = new ItemDAO();
+		ItemController itemController = new ItemController(itemDAO, utils);
+		itemController.readAll();
 		
-//		show list of items
-//		ask user to add items to order, create items
-//		until user completes order
+		boolean incompleteOrder = true;
+		Order order = new Order(customerId);
 		
-//		boolean incompleteOrder = true;
-//		while(moreItems) {
-//			LOGGER.info("Select item id or select 0 to create new item");
-//			Long itemId = utils.getLong();
-//			if (itemId.equals(0)) {
-//				moreItems = false
-//			}
-//			LOGGER.info("Please select the quantity of your item");
-//			Long itemQuantity = utils.getLong();
-//		}
-		
-		Order order = orderDAO.create(new Order(customerId));
+		while (incompleteOrder) {
+			LOGGER.info("Type add to add an existing item, type create to create a new item or complete to complete your order");
+			String orderPhase = utils.getString().toLowerCase();
+//			ask user to add items to order including quantity, create items in hash map
+			switch(orderPhase){
+			case "create":
+				itemController.create();
+				break;
+			case "add":
+				LOGGER.info("Enter the item ID of the item you would like to add to your order");
+				Integer orderItem = utils.getInt();
+				LOGGER.info("How many of that item would you like to add to the order");
+				int quantity = utils.getInt();
+				order.addItem(orderItem, quantity);
+				itemController.readAll();
+				break;
+			case "complete":
+				incompleteOrder = false;
+				break;
+			default:
+				LOGGER.info("Please enter one of the three options");
+				break;
+			}
+		}		
+		orderDAO.create(order);
 		LOGGER.info("Order created");
 		return order;
 	}

@@ -14,8 +14,8 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
-public class OrderDAO implements Dao<Order>{
-	
+public class OrderDAO implements Dao<Order> {
+
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
@@ -24,7 +24,7 @@ public class OrderDAO implements Dao<Order>{
 		Long id = resultSet.getLong("id");
 		return new Order(orderId, id);
 	}
-	
+
 	@Override
 	public List<Order> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -59,29 +59,44 @@ public class OrderDAO implements Dao<Order>{
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO orders(id, order_date) VALUES (?, ?)");) {
-			statement.setLong(1, order.getId());
+			statement.setLong(1, order.getCustomerId());
 			statement.setDate(2, java.sql.Date.valueOf(order.getOrderDate().toString()));
 			statement.executeUpdate();
 			createOrderLines(order);
 			return readLatest();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return null;
 	}
 
-	private void createOrderLines(Order order) {
+	private Order createOrderLines(Order order) {
 		
-		
+
+		for ( Integer key : order.getOrderLineQuantities().keySet()) {
+			try (Connection connection = DBUtils.getInstance().getConnection();
+					PreparedStatement statement = connection
+							.prepareStatement("INSERT INTO orderlines(order_id, item_id, quantity) VALUES (?, ?, ?)");) {
+				statement.setLong(1, order.getCustomerId());
+				statement.setInt(2, key);
+				statement.setLong(3, order.getOrderLineQuantities().get(key));
+				statement.executeUpdate();
+			} catch(Exception e) {
+				LOGGER.debug(e);
+				LOGGER.error(e.getMessage());
+			}
+		}
+		return readLatest();
 	}
+
 
 	@Override
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("UPDATE orders SET id = ? WHERE order_id = ?");) {
-			statement.setLong(1, order.getId());
+			statement.setLong(1, order.getCustomerId());
 			statement.setLong(2, order.getOrderId());
 			statement.executeUpdate();
 			return read(order.getOrderId());

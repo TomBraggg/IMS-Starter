@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.domain;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
@@ -8,17 +9,17 @@ public class Order {
 	private Long orderId;
 	private Long customerId;
 	private Date orderDate;
-	private Map<Item, Integer> orderLineQuantities;
+	private Map<Integer, Integer> orderLineQuantities = new HashMap<>();
 	
 	
-	public Order(Long id) {
-		this.setId(id);
+	public Order(Long customerId) {
+		this.setCustomerId(customerId);
 		this.setOrderDate();
 	}
 	
 	public Order(Long order_id, Long id) {
 		this.setOrderId(order_id);
-		this.setId(id);
+		this.setCustomerId(id);
 		this.setOrderDate();
 	}
 
@@ -30,11 +31,11 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public Long getId() {
+	public Long getCustomerId() {
 		return customerId;
 	}
 
-	public void setId(Long id) {
+	public void setCustomerId(Long id) {
 		this.customerId = id;
 	}
 	
@@ -50,13 +51,13 @@ public class Order {
 		return orderDate;
 	}
 	
-	public Map<Item, Integer> getOrderLineQuantities() {
+	public Map<Integer, Integer> getOrderLineQuantities() {
 		return orderLineQuantities;
 	}
 
-	public void addItem(Item item, int quantity) {
-		this.orderLineQuantities.put(item, quantity);
-	}
+	public void addItem(Integer orderItem, int quantity) {
+		this.orderLineQuantities.put(orderItem, quantity);
+	} 
 
 	@Override
 	public String toString() {
