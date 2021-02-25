@@ -47,12 +47,12 @@ public class OrderController implements CrudController<Order> {
 		while (incompleteOrder) {
 			LOGGER.info("Type add to add an existing item, type create to create a new item or complete to complete your order");
 			String orderPhase = utils.getString().toLowerCase();
-//			ask user to add items to order including quantity, create items in hash map
 			switch(orderPhase){
 			case "create":
 				itemController.create();
 				break;
 			case "add":
+				itemController.readAll();
 				LOGGER.info("Enter the item ID of the item you would like to add to your order");
 				Integer orderItem = utils.getInt();
 				LOGGER.info("How many of that item would you like to add to the order");

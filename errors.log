@@ -1,0 +1,31 @@
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java36 - id:1 first name:jordan surname:harrison
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java46 - Please enter a first name
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java48 - Please enter a surname
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java51 - Customer created
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java78 - Please enter the id of the customer you would like to delete
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java60 - Please enter the id of the customer you would like to update
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java62 - Please enter a first name
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java64 - Please enter a surname
+20210225 17:21:54 INFO  [main] controller.CustomerController CustomerController.java67 - Customer Updated
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java29 - item_id:null item_name:ball item_value:4.99
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java36 - Please enter an Item Name
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java38 - Please enter the value of the item
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java41 - Item created
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java60 - Please enter the item id of the item you would like to delete
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java47 - Please enter the item id of the item you would like to update
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java49 - Please enter the item name
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java51 - Please enter the value of the item
+20210225 17:21:54 INFO  [main] controller.ItemController ItemController.java54 - Item Updated
+20210225 17:21:55 DEBUG [main] dao.OrderDAO OrderDAO.java121 - java.lang.NullPointerException: Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Order.getCustomerId()" is null
+20210225 17:21:55 ERROR [main] dao.OrderDAO OrderDAO.java122 - Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Order.getCustomerId()" is null
+20210225 17:21:55 DEBUG [main] dao.OrderDAO OrderDAO.java86 - java.lang.NullPointerException: Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Order.getCustomerId()" is null
+20210225 17:21:55 ERROR [main] dao.OrderDAO OrderDAO.java87 - Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Order.getCustomerId()" is null
+20210225 17:21:56 INFO  [main] controller.OrderController OrderController.java30 - order_id:1 id1 date:2021-02-25
+20210225 17:21:56 INFO  [main] controller.OrderController OrderController.java89 - Please enter the order_id of the order you would like to delete
+20210225 17:21:56 INFO  [main] controller.OrderController OrderController.java78 - Please enter the order ID of the order you would like to update
+20210225 17:21:56 INFO  [main] controller.OrderController OrderController.java80 - Please enter a new Customer ID to associate the order with
+20210225 17:21:56 INFO  [main] controller.OrderController OrderController.java83 - Order updated
+20210225 17:21:56 DEBUG [main] dao.ItemDAO ItemDAO.java102 - java.lang.NullPointerException: Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Item.getItemId()" is null
+20210225 17:21:56 ERROR [main] dao.ItemDAO ItemDAO.java103 - Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Item.getItemId()" is null
+20210225 17:21:56 DEBUG [main] dao.CustomerDAO CustomerDAO.java119 - java.lang.NullPointerException: Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Customer.getId()" is null
+20210225 17:21:56 ERROR [main] dao.CustomerDAO CustomerDAO.java120 - Cannot invoke "java.lang.Long.longValue()" because the return value of "com.qa.ims.persistence.domain.Customer.getId()" is null
